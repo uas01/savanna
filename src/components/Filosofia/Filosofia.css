@@ -1,0 +1,388 @@
+/* ==========================================
+   FILOSOFIA
+========================================== */
+
+.filosofia {
+  position: relative;
+
+  background: #f7f3ee;
+
+  padding: 8rem 2rem;
+
+  z-index: 100;
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.filosofia-header {
+  max-width: 900px;
+
+  margin: 0 auto 3rem;
+
+  text-align: center;
+}
+
+.filosofia-header span {
+  display: block;
+
+  margin-bottom: 1rem;
+
+  color: #d97706;
+
+  font-size: 0.9rem;
+
+  letter-spacing: 0.25em;
+
+  text-transform: uppercase;
+}
+
+.filosofia-header h2 {
+  font-family: "SavannaTitle",
+    serif;
+
+  font-size: clamp(
+    2.5rem,
+    6vw,
+    5rem
+  );
+
+  line-height: 1.1;
+
+  color: #1f1f1f;
+
+  margin-bottom: 1.5rem;
+}
+
+.filosofia-header p {
+  max-width: 650px;
+
+  margin: 0 auto;
+
+  line-height: 1.8;
+
+  color: #555;
+
+  font-size: clamp(
+    1rem,
+    2vw,
+    1.25rem
+  );
+}
+
+/* ==========================================
+   CAROUSEL
+========================================== */
+
+.projects-carousel {
+  display: flex;
+
+  gap: 1.5rem;
+
+  overflow-x: auto;
+
+  padding: 1rem 0 2rem;
+
+  scrollbar-width: none;
+
+  scroll-snap-type: x mandatory;
+}
+
+.projects-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+/* ==========================================
+   PROJECT CARD
+========================================== */
+
+.project-card {
+  position: relative;
+
+  flex: 0 0 650px;
+
+  border-radius: 24px;
+
+  overflow: hidden;
+
+  cursor: pointer;
+
+  scroll-snap-align: center;
+}
+
+.project-card img {
+  width: 100%;
+
+  height: 700px;
+
+  object-fit: cover;
+
+  display: block;
+
+  transition: transform 0.5s ease;
+}
+
+.project-card:hover img {
+  transform: scale(1.04);
+}
+
+.project-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+  align-items: flex-end;
+
+  padding: 2rem;
+
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.65),
+    transparent 60%
+  );
+}
+
+.project-overlay h3 {
+  color: white;
+
+  font-family: "SavannaTitle",
+    serif;
+
+  font-size: 2rem;
+}
+
+/* ==========================================
+   LIGHTBOX
+========================================== */
+
+.lightbox {
+  position: fixed;
+
+  inset: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 2rem;
+
+  background: rgba(
+    0,
+    0,
+    0,
+    0.9
+  );
+
+z-index: 999999;
+}
+
+.lightbox-content {
+  position: relative;
+
+  width: 100%;
+  max-width: 1200px;
+
+  background: white;
+
+  border-radius: 24px;
+
+  overflow: hidden;
+    z-index: 1000000;
+
+}
+
+.lightbox-content img {
+  width: 100%;
+
+  max-height: 70vh;
+
+  object-fit: cover;
+
+  display: block;
+}
+
+.lightbox-info {
+  padding: 2rem;
+}
+
+.lightbox-info h3 {
+  font-family: "SavannaTitle",
+    serif;
+
+  font-size: 2rem;
+
+  color: #1f1f1f;
+
+  margin-bottom: 1rem;
+}
+
+.lightbox-info p {
+  color: #555;
+
+  line-height: 1.8;
+}
+
+.lightbox-close {
+  position: absolute;
+
+  top: 1rem;
+  right: 1rem;
+
+  width: 48px;
+  height: 48px;
+
+  border: none;
+
+  border-radius: 999px;
+
+  background: rgba(
+    255,
+    255,
+    255,
+    0.95
+  );
+
+  cursor: pointer;
+
+  font-size: 1.25rem;
+
+  font-weight: 600;
+
+  z-index: 20;
+
+  transition: 0.3s ease;
+}
+
+.lightbox-close:hover {
+  transform: scale(1.05);
+}
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width: 1024px) {
+  .project-card {
+    flex: 0 0 500px;
+  }
+
+  .project-card img {
+    height: 550px;
+  }
+
+  .project-overlay h3 {
+    font-size: 1.75rem;
+  }
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 768px) {
+  .filosofia {
+    padding: 5rem 1.25rem;
+  }
+
+  .filosofia-header {
+    margin: 0 auto 2rem;
+  }
+
+  .filosofia-header h2 {
+    font-size: clamp(
+      2.2rem,
+      10vw,
+      3.5rem
+    );
+  }
+
+  .filosofia-header p {
+    font-size: 1rem;
+  }
+
+  .projects-carousel {
+    gap: 1rem;
+  }
+
+  .project-card {
+    flex: 0 0 88vw;
+
+    border-radius: 18px;
+  }
+
+  .project-card img {
+    height: 50vh;
+
+    min-height: 320px;
+
+    max-height: 500px;
+  }
+
+  .project-overlay {
+    padding: 1.25rem;
+  }
+
+  .project-overlay h3 {
+    font-size: 1.4rem;
+  }
+
+  .lightbox {
+    padding: 1rem;
+  }
+
+  .lightbox-content img {
+    max-height: 55vh;
+  }
+
+  .lightbox-info {
+    padding: 1.5rem;
+  }
+
+  .lightbox-info h3 {
+    font-size: 1.5rem;
+  }
+}
+
+/* ==========================================
+   MOBILE PEQUEÑO
+========================================== */
+
+@media (max-width: 480px) {
+  .filosofia {
+    padding: 4rem 1rem;
+  }
+
+  .filosofia-header span {
+    font-size: 0.8rem;
+  }
+
+  .filosofia-header h2 {
+    font-size: clamp(
+      2rem,
+      12vw,
+      3rem
+    );
+  }
+
+  .filosofia-header p {
+    font-size: 0.95rem;
+  }
+
+  .project-card {
+    flex: 0 0 92vw;
+  }
+
+  .project-card img {
+    height: 42vh;
+
+    min-height: 280px;
+
+    max-height: 360px;
+  }
+
+  .project-overlay h3 {
+    font-size: 1.2rem;
+  }
+}

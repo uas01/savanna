@@ -1,0 +1,18 @@
+@font-face {
+  font-family: "SavannaTitle";
+
+  src: url("../assets/fonts/Bodoni 72 Smallcaps Book.ttf")
+    format("truetype");
+
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SavannaBody";
+
+  src: url("../assets/fonts/Shree714.ttc");
+
+  font-weight: normal;
+  font-style: normal;
+}

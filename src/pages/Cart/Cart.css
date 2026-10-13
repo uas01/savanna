@@ -1,0 +1,147 @@
+.cart-page {
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 8rem 2rem;
+
+  text-align: center;
+}
+
+.cart-content {
+  max-width: 900px;
+}
+
+.cart-tag {
+  display: block;
+
+  margin-bottom: 1rem;
+
+  color: #8a6d46;
+
+  letter-spacing: 0.3em;
+
+  text-transform: uppercase;
+
+  font-size: 0.9rem;
+}
+
+.cart-content h1 {
+  font-family: "SavannaTitle",
+    serif;
+
+  font-size: clamp(
+    4rem,
+    10vw,
+    8rem
+  );
+
+  line-height: 1;
+
+  margin-bottom: 1rem;
+
+  color: #1f1f1f;
+}
+
+.cart-content h2 {
+  font-family: "SavannaTitle",
+    serif;
+
+  font-size: clamp(
+    1.5rem,
+    3vw,
+    2.5rem
+  );
+
+  margin-bottom: 2rem;
+}
+
+.cart-content p {
+  max-width: 650px;
+
+  margin: 0 auto 1rem;
+
+  line-height: 1.8;
+
+  color: #5c5c5c;
+}
+
+.cart-empty {
+  font-size: clamp(
+    5rem,
+    12vw,
+    8rem
+  );
+
+  margin: 3rem 0 1rem;
+}
+
+.cart-message {
+  font-style: italic;
+
+  color: #777;
+}
+
+/* ==========================================
+   BACK BUTTON TOP
+========================================== */
+
+.back-button-top {
+  position: fixed;
+
+  top: 2rem;
+  left: 2rem;
+
+  z-index: 100;
+
+  padding: 12px 20px;
+
+  border: none;
+
+  border-radius: 999px;
+
+  cursor: pointer;
+
+  background: rgba(
+    255,
+    255,
+    255,
+    0.22
+  );
+
+  backdrop-filter: blur(10px);
+
+  -webkit-backdrop-filter: blur(10px);
+
+  color: #1f1f1f;
+
+  font-size: 0.95rem;
+
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease;
+}
+
+.back-button-top:hover {
+  transform: translateY(-2px);
+
+  background: rgba(
+    255,
+    255,
+    255,
+    0.35
+  );
+}
+
+@media (max-width: 768px) {
+  .back-button-top {
+    top: 1rem;
+    left: 1rem;
+
+    padding: 10px 16px;
+
+    font-size: 0.85rem;
+  }
+}

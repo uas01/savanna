@@ -1,0 +1,216 @@
+/* ==========================================
+   OUTLET PAGE
+========================================== */
+
+.outlet {
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 6rem 2rem;
+
+  text-align: center;
+}
+
+/* ==========================================
+   BACK BUTTON TOP
+========================================== */
+
+.back-button-top {
+  position: fixed;
+
+  top: 2rem;
+  left: 2rem;
+
+  z-index: 100;
+
+  padding: 12px 20px;
+
+  border: none;
+
+  border-radius: 999px;
+
+  cursor: pointer;
+
+  background: rgba(
+    255,
+    255,
+    255,
+    0.22
+  );
+
+  backdrop-filter: blur(10px);
+
+  -webkit-backdrop-filter: blur(10px);
+
+  color: #1f1f1f;
+
+  font-size: 0.95rem;
+
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease;
+}
+
+.back-button-top:hover {
+  transform: translateY(-2px);
+
+  background: rgba(
+    255,
+    255,
+    255,
+    0.35
+  );
+}
+
+/* ==========================================
+   CONTENT
+========================================== */
+
+.outlet-content {
+  width: 100%;
+
+  max-width: 900px;
+
+  margin: 0 auto;
+}
+
+.outlet-tag {
+  display: block;
+
+  margin-bottom: 1rem;
+
+  color: #a14242;
+
+  letter-spacing: 0.3em;
+
+  text-transform: uppercase;
+
+  font-size: 0.85rem;
+}
+
+/* ==========================================
+   TITLES
+========================================== */
+
+.outlet-content h1 {
+  font-family: "SavannaTitle",
+    serif;
+
+  font-size: clamp(
+    4rem,
+    10vw,
+    8rem
+  );
+
+  line-height: 1;
+
+  margin-bottom: 1rem;
+
+  color: #1f1f1f;
+}
+
+.outlet-content h2 {
+  font-family: "SavannaTitle",
+    serif;
+
+  font-size: clamp(
+    1.5rem,
+    3vw,
+    2.5rem
+  );
+
+  margin-bottom: 2rem;
+
+  color: #2d2d2d;
+}
+
+/* ==========================================
+   TEXT
+========================================== */
+
+.outlet-content p {
+  max-width: 650px;
+
+  margin: 0 auto 1rem;
+
+  line-height: 1.8;
+
+  color: #5c5c5c;
+}
+
+/* ==========================================
+   404
+========================================== */
+
+.error-code {
+  font-size: clamp(
+    7rem,
+    18vw,
+    14rem
+  );
+
+  font-weight: 700;
+
+  line-height: 1;
+
+  margin: 3rem 0 1rem;
+
+  color: rgba(
+    0,
+    0,
+    0,
+    0.08
+  );
+
+  user-select: none;
+}
+
+.funny-text {
+  font-style: italic;
+
+  color: #777;
+
+  margin-bottom: 2rem;
+}
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width: 1024px) {
+  .outlet {
+    padding: 5rem 2rem;
+  }
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 768px) {
+  .outlet {
+    padding: 4rem 1rem;
+  }
+
+  .back-button-top {
+    top: 1rem;
+    left: 1rem;
+
+    padding: 10px 16px;
+
+    font-size: 0.85rem;
+  }
+
+  .back-button {
+    width: 100%;
+
+    max-width: 320px;
+  }
+
+  .error-code {
+    margin: 2rem 0 1rem;
+  }
+}

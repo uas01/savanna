@@ -1,0 +1,103 @@
+.room-page {
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 6rem 2rem;
+
+  text-align: center;
+}
+
+.room-content {
+  max-width: 900px;
+}
+
+.room-tag {
+  display: block;
+
+  margin-bottom: 1rem;
+
+  color: #8a6d46;
+
+  letter-spacing: 0.3em;
+
+  text-transform: uppercase;
+
+  font-size: 0.85rem;
+}
+
+.room-content h1 {
+  font-family: "SavannaTitle",
+    serif;
+
+  font-size: clamp(
+    4rem,
+    10vw,
+    8rem
+  );
+
+  margin-bottom: 1rem;
+}
+
+.room-content h2 {
+  margin-bottom: 2rem;
+}
+
+.room-content p {
+  max-width: 650px;
+
+  margin: 0 auto 1rem;
+
+  line-height: 1.8;
+}
+
+.error-code {
+  font-size: clamp(
+    7rem,
+    18vw,
+    14rem
+  );
+
+  color: rgba(
+    0,
+    0,
+    0,
+    0.08
+  );
+
+  margin: 3rem 0 1rem;
+}
+
+.funny-text {
+  font-style: italic;
+}
+
+/* mismo botón que Outlet */
+
+.back-button-top {
+  position: fixed;
+
+  top: 2rem;
+  left: 2rem;
+
+  padding: 12px 20px;
+
+  border: none;
+
+  border-radius: 999px;
+
+  cursor: pointer;
+
+  background: rgba(
+    255,
+    255,
+    255,
+    0.22
+  );
+
+  backdrop-filter: blur(10px);
+
+  color: #1f1f1f;
+}

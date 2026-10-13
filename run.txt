@@ -1,0 +1,9 @@
+npm run dev
+
+ipconfig getifaddr en0 -> ver ip mac
+
+npm run dev -- --host 192.168.0.75 (Familia)
+
+npm run dev -- --host 192.168.1.5 (Otero)
+
+npm run dev -- --host 172.20.10.2 (iphone)
