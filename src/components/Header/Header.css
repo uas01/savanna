@@ -357,3 +357,16 @@
 .header-footer .hamburger span {
   background: #ffffff;
 }
+.header-inner {
+  background: rgba(246, 243, 236, 0.96);
+}
+
+.header-menu-open {
+  background: transparent;
+  backdrop-filter: none;
+  border-color: transparent;
+}
+
+.header-menu-open .header-logo {
+  color: white;
+}

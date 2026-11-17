@@ -11,6 +11,7 @@
 }
 
 .cart-content {
+  width: 100%;
   max-width: 900px;
 }
 
@@ -84,64 +85,8 @@
   color: #777;
 }
 
-/* ==========================================
-   BACK BUTTON TOP
-========================================== */
-
-.back-button-top {
-  position: fixed;
-
-  top: 2rem;
-  left: 2rem;
-
-  z-index: 100;
-
-  padding: 12px 20px;
-
-  border: none;
-
-  border-radius: 999px;
-
-  cursor: pointer;
-
-  background: rgba(
-    255,
-    255,
-    255,
-    0.22
-  );
-
-  backdrop-filter: blur(10px);
-
-  -webkit-backdrop-filter: blur(10px);
-
-  color: #1f1f1f;
-
-  font-size: 0.95rem;
-
-  transition:
-    transform 0.3s ease,
-    background 0.3s ease;
-}
-
-.back-button-top:hover {
-  transform: translateY(-2px);
-
-  background: rgba(
-    255,
-    255,
-    255,
-    0.35
-  );
-}
-
 @media (max-width: 768px) {
-  .back-button-top {
-    top: 1rem;
-    left: 1rem;
-
-    padding: 10px 16px;
-
-    font-size: 0.85rem;
+  .cart-page {
+    padding: 4rem 1rem;
   }
 }

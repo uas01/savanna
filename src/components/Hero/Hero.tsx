@@ -5,6 +5,7 @@ import {
   useTransform,
   useSpring,
   useMotionTemplate,
+  useReducedMotion,
 } from "framer-motion";
 
 import heroImage from "../../assets/images/hero/hero.webp";
@@ -12,7 +13,8 @@ import heroImage from "../../assets/images/hero/hero.webp";
 import "./Hero.css";
 
 export default function Hero() {
-  const heroRef = useRef(null);
+  const heroRef = useRef<HTMLElement>(null);
+  const reducedMotion = useReducedMotion();
 
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -61,8 +63,8 @@ export default function Hero() {
       <motion.div
         className="hero-background"
         style={{
-          scale: smoothScale,
-          filter,
+          scale: reducedMotion ? 1 : smoothScale,
+          filter: reducedMotion ? "none" : filter,
           backgroundImage: `url(${heroImage})`,
         }}
       />
@@ -73,8 +75,8 @@ export default function Hero() {
         <motion.div
           className="hero-content"
           style={{
-            y: textY,
-            opacity: textOpacity,
+            y: reducedMotion ? 0 : textY,
+            opacity: reducedMotion ? 1 : textOpacity,
           }}
         >
           <span className="hero-subtitle">

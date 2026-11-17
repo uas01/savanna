@@ -1,17 +1,21 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+
+import { Link } from "react-router-dom";
 
 import "./Footer.css";
 
 export default function Footer() {
+  const reducedMotion = useReducedMotion();
+
   return (
     <motion.footer
       id="contacto"
       className="footer"
-      initial={{
+      initial={reducedMotion ? false : {
         opacity: 0,
         y: 100,
       }}
-      whileInView={{
+      whileInView={reducedMotion ? undefined : {
         opacity: 1,
         y: 0,
       }}
@@ -28,10 +32,10 @@ export default function Footer() {
         <div className="footer-column">
           <h3>Navegación</h3>
 
-          <button>Productos</button>
-          <button>Estancias</button>
-          <button>Outlet</button>
-          <button>Contacto</button>
+          <Link to="/catalogo">Productos</Link>
+          <Link to="/#estancias">Estancias</Link>
+          <Link to="/outlet">Outlet</Link>
+          <Link to="/#contacto">Contacto</Link>
         </div>
 
         <div className="footer-column">
@@ -49,7 +53,7 @@ export default function Footer() {
           <button>Instagram</button>
           <button>TikTok</button>
           <button>WhatsApp</button>
-          <button>info@savanna.es</button>
+          <a href="mailto:info@savanna.es">info@savanna.es</a>
         </div>
       </section>
 

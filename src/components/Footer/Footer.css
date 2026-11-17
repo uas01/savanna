@@ -25,7 +25,7 @@
 
   display: grid;
 
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 
   gap: 4rem;
 
@@ -48,7 +48,8 @@
   color: rgba(255, 255, 255, 0.6);
 }
 
-.footer-column button {
+.footer-column button,
+.footer-column a {
   display: block;
 
   background: transparent;
@@ -69,7 +70,8 @@
   transition: opacity 0.3s ease;
 }
 
-.footer-column button:hover {
+.footer-column button:hover,
+.footer-column a:hover {
   opacity: 0.7;
 }
 
@@ -203,36 +205,63 @@
   opacity: 0.8;
 }
 
-/* ==========================================
-   TABLET
-========================================== */
+.footer-column {
+  min-width: 0;
+}
 
-@media (max-width: 1024px) {
+.footer-column button,
+.footer-column a,
+.footer-bottom button {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 900px) {
   .footer-grid {
-    grid-template-columns: 1fr;
-
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 3rem;
+  }
+
+  .footer-column:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .footer-bottom,
+  .footer-bottom div {
+    flex-wrap: wrap;
   }
 }
 
-/* ==========================================
-   MOBILE
-========================================== */
-
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .footer {
-    padding: 5rem 1.5rem 2rem;
+    padding: 3rem 1.25rem 1.5rem;
+  }
+
+  .footer-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.75rem;
+    padding-block: 2rem;
+  }
+
+  .footer-column:last-child {
+    grid-column: auto;
+  }
+
+  .footer-newsletter {
+    margin-block: 3rem;
+  }
+
+  .newsletter-form {
+    flex-direction: column;
+  }
+
+  .newsletter-form input,
+  .newsletter-form button {
+    width: 100%;
+    max-width: none;
   }
 
   .footer-bottom {
     flex-direction: column;
-
-    text-align: center;
-  }
-
-  .footer-bottom div {
-    justify-content: center;
-
-    flex-wrap: wrap;
+    align-items: flex-start;
   }
 }

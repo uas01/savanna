@@ -1,54 +1,17 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
+import ProductGrid from "../../components/Shop/ProductGrid";
+import { ROOM_TITLES } from "../../data/rooms";
 
 import "./Room.css";
 
 export default function Room() {
-  const navigate = useNavigate();
-
   const { slug } = useParams();
 
-  const titles: Record<
-    string,
-    string
-  > = {
-    salon: "Salón",
-    cocina: "Cocina",
-    dormitorio: "Dormitorio",
-    bano: "Baño",
-    comedor: "Comedor",
-    exterior: "Exterior",
-  };
-
-  const roomName =
-    titles[slug ?? ""] ??
-    "Estancia";
+  const roomName = ROOM_TITLES[slug ?? ""] ?? "Estancia";
 
   return (
     <section className="room-page">
-    <button
-  type="button"
-  className="back-button-top"
-  onClick={() => {
-    navigate("/");
-
-    setTimeout(() => {
-      const estancias =
-        document.getElementById(
-          "estancias"
-        );
-
-      estancias?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }, 100);
-  }}
->
-  ← Volver a Estancias
-</button>
-
-
       <motion.div
         className="room-content"
         initial={{
@@ -63,30 +26,16 @@ export default function Room() {
           duration: 0.8,
         }}
       >
-        <span className="room-tag">
-          SAVANNA ESTANCIAS
-        </span>
+        <span className="room-tag">SAVANNA ESTANCIAS</span>
 
         <h1>{roomName}</h1>
 
-        <h2>
-          Estamos preparando este espacio.
-        </h2>
-
-        <p>
-          Muy pronto encontrarás inspiración,
-          productos y proyectos relacionados
-          con esta estancia.
-        </p>
-
-        <div className="error-code">
-          404
+        <div className="shop-links">
+          <Link to="/#estancias">← Volver a Estancias</Link>
+          <Link to="/catalogo">Catálogo</Link>
+          <Link to="/carrito">Ver carrito</Link>
         </div>
-
-        <p className="funny-text">
-          Parece que todavía estamos
-          decorando esta habitación...
-        </p>
+        <ProductGrid key={slug} category={slug} />
       </motion.div>
     </section>
   );

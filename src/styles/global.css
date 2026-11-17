@@ -38,3 +38,20 @@ main {
 
   background: #D1CABB;
 }
+
+.inner-page {
+  padding-top: 4.5rem;
+  background: var(--background);
+}
+
+#estancias,
+#filosofia,
+#contacto {
+  scroll-margin-top: 5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

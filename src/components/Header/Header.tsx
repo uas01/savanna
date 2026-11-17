@@ -1,231 +1,112 @@
 import { useEffect, useState } from "react";
 import { ShoppingBag } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import "./Header.css";
 
-export default function Header() {
-  const navigate = useNavigate();
+const links = [
+  { label: "Estancias", to: "/#estancias" },
+  { label: "Trabajos", to: "/#filosofia" },
+  { label: "Contacto", to: "/#contacto" },
+  { label: "Outlet", to: "/outlet" },
+];
 
-  const [menuOpen, setMenuOpen] =
-    useState(false);
-
-  const [scrolled, setScrolled] =
-    useState(false);
-
-  const [footerVisible, setFooterVisible] =
-    useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const hero =
-        document.querySelector(".hero");
-
-      if (!hero) return;
-
-      setScrolled(
-        window.scrollY >
-          hero.clientHeight - 120
-      );
-    };
-
-    handleScroll();
-
-    window.addEventListener(
-      "scroll",
-      handleScroll
-    );
-
-    return () => {
-      window.removeEventListener(
-        "scroll",
-        handleScroll
-      );
-    };
-  }, []);
+export default function Header({ isHome }: { isHome: boolean }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [footerVisible, setFooterVisible] = useState(false);
 
   useEffect(() => {
-    const handleFooter = () => {
-      const footer =
-        document.getElementById(
-          "contacto"
-        );
+    if (!isHome) return;
 
-      if (!footer) return;
+    const hero = document.querySelector(".hero");
+    const footer = document.getElementById("contacto");
 
-      const rect =
-        footer.getBoundingClientRect();
-
+    const updateHeader = () => {
+      setScrolled(!hero || window.scrollY > hero.clientHeight - 120);
       setFooterVisible(
-        rect.top <
-          window.innerHeight * 0.8
+        !!footer &&
+          footer.getBoundingClientRect().top < window.innerHeight * 0.8,
       );
     };
 
-    handleFooter();
-
-    window.addEventListener(
-      "scroll",
-      handleFooter
-    );
-
+    updateHeader();
+    window.addEventListener("scroll", updateHeader, { passive: true });
+    window.addEventListener("resize", updateHeader);
     return () => {
-      window.removeEventListener(
-        "scroll",
-        handleFooter
-      );
+      window.removeEventListener("scroll", updateHeader);
+      window.removeEventListener("resize", updateHeader);
     };
-  }, []);
+  }, [isHome]);
 
   useEffect(() => {
-    if (menuOpen) {
-      document.body.style.overflow =
-        "hidden";
-    } else {
-      document.body.style.overflow =
-        "auto";
-    }
+    if (!menuOpen) return;
 
+    const previousOverflow = document.body.style.overflow;
+    const desktop = window.matchMedia("(min-width: 769px)");
+    const closeOnDesktop = () => {
+      if (desktop.matches) setMenuOpen(false);
+    };
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        document.getElementById("mobile-menu-toggle")?.focus();
+      }
+    };
+
+    document.body.style.overflow = "hidden";
+    desktop.addEventListener("change", closeOnDesktop);
+    window.addEventListener("keydown", closeOnEscape);
     return () => {
-      document.body.style.overflow =
-        "auto";
+      document.body.style.overflow = previousOverflow;
+      desktop.removeEventListener("change", closeOnDesktop);
+      window.removeEventListener("keydown", closeOnEscape);
     };
   }, [menuOpen]);
 
-  const closeMenu = () => {
-    setMenuOpen(false);
-  };
-
-  const goTop = () => {
-    navigate("/");
-
-    setTimeout(() => {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-    }, 50);
-
-    closeMenu();
-  };
-
-  const scrollToSection = (
-    id: string
-  ) => {
-    if (
-      window.location.pathname !== "/"
-    ) {
-      navigate("/");
-
-      setTimeout(() => {
-        const section =
-          document.getElementById(id);
-
-        section?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      }, 100);
-    } else {
-      const section =
-        document.getElementById(id);
-
-      section?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-
-    closeMenu();
-  };
+  const closeMenu = () => setMenuOpen(false);
+  const solid = !isHome || scrolled;
 
   return (
     <>
       <header
-        className={`header
-          ${
-            scrolled
-              ? "header-solid"
-              : ""
-          }
-          ${
-            footerVisible
-              ? "header-footer"
-              : ""
-          }
-        `}
+        className={[
+          "header",
+          solid && "header-solid",
+          !isHome && "header-inner",
+          isHome && footerVisible && "header-footer",
+          menuOpen && "header-menu-open",
+        ]
+          .filter(Boolean)
+          .join(" ")}
       >
-        <button
-          type="button"
-          className="header-logo"
-          onClick={goTop}
-        >
+        <Link className="header-logo" to="/" onClick={closeMenu}>
           SAVANNA
-        </button>
+        </Link>
 
-        <nav className="header-nav">
-          <button
-            className="nav-link"
-            onClick={() =>
-              scrollToSection(
-                "estancias"
-              )
-            }
-          >
-            Estancias
-          </button>
-
-          <button
-            className="nav-link"
-            onClick={() =>
-              scrollToSection(
-                "filosofia"
-              )
-            }
-          >
-            Trabajos
-          </button>
-
-          <button
-            className="nav-link"
-            onClick={() =>
-              scrollToSection(
-                "contacto"
-              )
-            }
-          >
-            Contacto
-          </button>
-
-          <button
-            className="nav-link outlet-link"
-            onClick={() =>
-              navigate("/outlet")
-            }
-          >
-            Outlet
-          </button>
-
-          <button
-            className="cart-button"
-            onClick={() =>
-              navigate("/carrito")
-            }
-            aria-label="Carrito"
-          >
+        <nav className="header-nav" aria-label="Principal">
+          {links.map(({ label, to }) => (
+            <Link
+              key={to}
+              className={to === "/outlet" ? "nav-link outlet-link" : "nav-link"}
+              to={to}
+            >
+              {label}
+            </Link>
+          ))}
+          <Link className="cart-button" to="/carrito" aria-label="Carrito">
             <ShoppingBag size={22} />
-          </button>
+          </Link>
         </nav>
 
         <button
-          className={`hamburger ${
-            menuOpen
-              ? "active"
-              : ""
-          }`}
-          onClick={() =>
-            setMenuOpen(!menuOpen)
-          }
+          id="mobile-menu-toggle"
+          type="button"
+          className={menuOpen ? "hamburger active" : "hamburger"}
+          aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
+          aria-expanded={menuOpen}
+          aria-controls={menuOpen ? "mobile-menu" : undefined}
+          onClick={() => setMenuOpen(!menuOpen)}
         >
           <span />
           <span />
@@ -234,60 +115,28 @@ export default function Header() {
       </header>
 
       {menuOpen && (
-        <div className="mobile-menu">
-          <button
-            className="mobile-link"
-            onClick={() =>
-              scrollToSection(
-                "estancias"
-              )
-            }
-          >
-            Estancias
-          </button>
-
-          <button
-            className="mobile-link"
-            onClick={() =>
-              scrollToSection(
-                "filosofia"
-              )
-            }
-          >
-            Trabajos
-          </button>
-
-          <button
-            className="mobile-link"
-            onClick={() =>
-              scrollToSection(
-                "contacto"
-              )
-            }
-          >
-            Contacto
-          </button>
-
-          <button
-            className="mobile-link outlet-link"
-            onClick={() => {
-              navigate("/outlet");
-              closeMenu();
-            }}
-          >
-            Outlet
-          </button>
-
-          <button
+        <nav id="mobile-menu" className="mobile-menu" aria-label="Principal">
+          {links.map(({ label, to }) => (
+            <Link
+              key={to}
+              className={
+                to === "/outlet" ? "mobile-link outlet-link" : "mobile-link"
+              }
+              to={to}
+              onClick={closeMenu}
+            >
+              {label}
+            </Link>
+          ))}
+          <Link
             className="mobile-link mobile-cart"
-            onClick={() => {
-              navigate("/carrito");
-              closeMenu();
-            }}
+            to="/carrito"
+            aria-label="Carrito"
+            onClick={closeMenu}
           >
             <ShoppingBag size={30} />
-          </button>
-        </div>
+          </Link>
+        </nav>
       )}
     </>
   );

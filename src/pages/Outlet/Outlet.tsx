@@ -1,21 +1,12 @@
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import ProductGrid from "../../components/Shop/ProductGrid";
 
 import "./Outlet.css";
 
 export default function Outlet() {
-  const navigate = useNavigate();
-
   return (
     <section className="outlet">
-      <button
-        type="button"
-        className="back-button-top"
-        onClick={() => navigate("/")}
-      >
-        ← Volver a Savanna
-      </button>
-
       <motion.div
         className="outlet-content"
         initial={{
@@ -30,38 +21,15 @@ export default function Outlet() {
           duration: 0.8,
         }}
       >
-        <span className="outlet-tag">
-          SAVANNA OUTLET
-        </span>
+        <span className="outlet-tag">SAVANNA OUTLET</span>
 
         <h1>Outlet</h1>
 
-        <h2>
-          Estamos preparando algo especial.
-        </h2>
-
-        <p>
-          Los productos Outlet de Savanna
-          están siendo seleccionados para
-          ofrecer piezas únicas, últimas
-          unidades y colecciones con precios
-          especiales.
-        </p>
-
-        <p>
-          Muy pronto encontrarás auténticos
-          tesoros para tu hogar.
-        </p>
-
-        <div className="error-code">
-          404
+        <div className="shop-links">
+          <Link to="/catalogo">Catálogo completo</Link>
+          <Link to="/carrito">Ver carrito</Link>
         </div>
-
-        <p className="funny-text">
-          Parece que nuestros productos
-          siguen escondidos en el almacén...
-        </p>
-
+        <ProductGrid outlet />
       </motion.div>
     </section>
   );
