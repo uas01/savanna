@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { euros, products } from "../../data/products";
 import { useCart } from "../../features/cart/CartContext";
 import {
@@ -15,6 +15,39 @@ import "./Cart.css";
 export default function Cart() {
   const { lines, subtotalCents, setQuantity, remove } = useCart();
   const [zone, setZone] = useState<ShippingZone>("peninsula");
+  const [search] = useSearchParams();
+  const [openingCheckout, setOpeningCheckout] = useState(false);
+  const [checkoutError, setCheckoutError] = useState("");
+  const testCheckout = import.meta.env.VITE_ENABLE_TEST_CHECKOUT === "true";
+
+  async function openCheckout() {
+    setOpeningCheckout(true);
+    setCheckoutError("");
+    try {
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(lines),
+      });
+      const result = await response.json().catch(() => null);
+      if (
+        response.ok &&
+        typeof result?.url === "string" &&
+        new URL(result.url).origin === "https://checkout.stripe.com"
+      ) {
+        window.location.assign(result.url);
+        return;
+      }
+      throw new Error(typeof result?.error === "string" ? result.error : "");
+    } catch (error) {
+      setCheckoutError(
+        error instanceof Error && error.message
+          ? error.message
+          : "No se pudo abrir el pago de prueba.",
+      );
+      setOpeningCheckout(false);
+    }
+  }
 
   return (
     <section className="cart-page">
@@ -35,6 +68,11 @@ export default function Cart() {
         <span className="cart-tag">SAVANNA</span>
 
         <h1>Carrito</h1>
+        {testCheckout && search.get("checkout") === "returned" && (
+          <p role="status">
+            Has vuelto del pago de prueba. No se tramita ningún pedido real.
+          </p>
+        )}
 
         <div className="shop-links">
           <Link to="/catalogo">Seguir comprando</Link>
@@ -115,9 +153,27 @@ export default function Cart() {
                 Pedido de prueba. Los gastos de envío y los impuestos están
                 pendientes de configuración.
               </p>
-              <button className="shop-button" type="button" disabled>
-                Pago no disponible
-              </button>
+              {testCheckout ? (
+                <>
+                  <p>
+                    Prueba el pago con tarjeta, Apple Pay o Google Pay según el
+                    dispositivo y la configuración de Stripe.
+                  </p>
+                  <button
+                    className="shop-button"
+                    type="button"
+                    onClick={openCheckout}
+                    disabled={openingCheckout}
+                  >
+                    {openingCheckout ? "Abriendo Stripe…" : "Probar el pago"}
+                  </button>
+                  {checkoutError && <p role="alert">{checkoutError}</p>}
+                </>
+              ) : (
+                <button className="shop-button" type="button" disabled>
+                  Pago no disponible
+                </button>
+              )}
             </div>
           </>
         )}
